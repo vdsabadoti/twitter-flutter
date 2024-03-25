@@ -20,77 +20,108 @@ class TwitterApp extends StatelessWidget {
           ),
           backgroundColor: const Color.fromRGBO(88, 176, 240, 1),
         ),
-        body: Column(
+        body: const Column(
           children: [
-            Container(
-              child: NavBar(),
-            ),
-            Container(
-              child: Column(
-                children: [
-                  //many cards
-                  Row(
-                    children: [
-                      Expanded(
-                          flex : 1,
-                          child: Image.network(
-                              'https://picsum.photos/250?image=9'
-                          )),
-                      const Expanded(
-                          flex : 3,
-                          child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text('Username@Title'),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text('50s'),
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('Content Content Content Content Content Content Content Content Content Content Content Content '
-                                      'Content Content Content Content Content'),
-                                )
-                              ],
-                      ),
-                      ),
-                  ],),
-                  Row(
-                    children: [
-                      Expanded(child: TweetButton('Répondre')),
-                      Expanded(child: TweetButton('Retweet')),
-                      Expanded(child: TweetButton('Favoris')),
-                      ],
-                  )
-                ],
-              ),
-            ),
+            Header(),
+            Body(),
           ],
         ),
         bottomNavigationBar: const Padding(
           padding: EdgeInsets.all(25.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Expanded(
-                  child: TextFooter('Fil')),
-              Expanded(
-                  child: TextFooter('Notifications')),
-              Expanded(
-                  child: TextFooter('Messages')),
-              Expanded(
-                  child: TextFooter('Moi'))
-            ],
-          ),
+          child: Footer(),
         ),
       ),
+    );
+  }
+}
+
+class Footer extends StatelessWidget {
+  const Footer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(
+            child: TextFooter('Fil')),
+        Expanded(
+            child: TextFooter('Notifications')),
+        Expanded(
+            child: TextFooter('Messages')),
+        Expanded(
+            child: TextFooter('Moi'))
+      ],
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  const Body({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        //many cards
+        Row(
+          children: [
+            Expanded(
+                flex : 1,
+                child: Image.network(
+                    'https://picsum.photos/250?image=9'
+                )),
+            const Expanded(
+                flex : 3,
+                child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Username@Title'),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('50s'),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text('Content Content Content Content Content Content Content Content Content Content Content Content '
+                            'Content Content Content Content Content'),
+                      )
+                    ],
+            ),
+            ),
+        ],),
+        Row(
+          children: [
+            Expanded(child: TweetButton('Répondre')),
+            Expanded(child: TweetButton('Retweet')),
+            Expanded(child: TweetButton('Favoris')),
+            ],
+        )
+      ],
+    );
+  }
+}
+
+class Header extends StatelessWidget {
+  const Header({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: NavBar(),
     );
   }
 }
