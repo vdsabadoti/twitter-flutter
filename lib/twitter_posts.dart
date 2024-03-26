@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class TwitterPosts extends StatelessWidget {
 
@@ -32,12 +34,16 @@ class TwitterPosts extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(username),
-                        ),
+                          child:
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(username),
+                              ),
+                          ),
                         const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Text('50s'),
@@ -58,9 +64,9 @@ class TwitterPosts extends StatelessWidget {
         ),
         const Row(
           children: [
-            Expanded(child: TweetButton('Répondre')),
-            Expanded(child: TweetButton('Retweet')),
-            Expanded(child: TweetButton('Favoris')),
+            Expanded(child: TweetIconButton('Répondre')),
+            Expanded(child: TweetIconButton('Retweet')),
+            Expanded(child: TweetIconButton('Favoris')),
           ],
         )
       ],
@@ -68,16 +74,33 @@ class TwitterPosts extends StatelessWidget {
   }
 }
 
-class TweetButton extends StatelessWidget {
+class TweetIconButton extends StatelessWidget {
 
   final String title;
 
-  const TweetButton(this.title, {
+  const TweetIconButton(this.title, {
     super.key,
   });
 
+  Icon getIcon() {
+    switch (title) {
+      case 'Répondre':
+        return Icon(Icons.reply);
+      case 'Retweet':
+        return Icon(Icons.repeat);
+      case 'Favoris':
+        return Icon(Icons.star);
+      default:
+        return Icon(Icons.volcano);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: () {}, child: Text(title));
+    return IconButton(
+      onPressed: () {},
+      icon: getIcon(),
+      color: CupertinoColors.systemGrey,
+    );
   }
 }

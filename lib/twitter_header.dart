@@ -27,11 +27,11 @@ class NavBar extends StatelessWidget {
           mainAxisAlignment:  MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-                child: TextNavBar('Nouveau')),
+                child: IconNavBar('Nouveau')),
             Expanded(
-                child: TextNavBar('Accueil')),
+                child: IconNavBar('Accueil')),
             Expanded(
-                child: TextNavBar('Rechercher')),
+                child: IconNavBar('Rechercher')),
           ],
         ),
       ),
@@ -40,22 +40,33 @@ class NavBar extends StatelessWidget {
 }
 
 
-class TextNavBar extends StatelessWidget {
+class IconNavBar extends StatelessWidget {
 
   final String title;
 
-  const TextNavBar(this.title, {
+  const IconNavBar(this.title, {
     super.key,
   });
 
+  Icon getIcon(){
+    switch(title) {
+      case 'Nouveau':
+      return Icon(Icons.edit);
+      case 'Accueil':
+        return Icon(Icons.home);
+      case 'Rechercher':
+        return Icon(Icons.search);
+      default:
+        return Icon(Icons.volcano);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return IconButton(
       onPressed: () {},
-      child: Text(
-        title,
-        style: const TextStyle(color: Colors.white),
-      ),
+      icon: getIcon(),
+      color: Colors.white,
     );
   }
 }

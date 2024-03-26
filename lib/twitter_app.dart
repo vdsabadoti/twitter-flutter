@@ -11,13 +11,25 @@ class TwitterApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Twitter",
-            style: TextStyle(color: Colors.white),
+          title: Row(
+            children: [
+              SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: Image.network('https://cdn-icons-png.freepik.com/256/13051/13051786.png')
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left : 10),
+                child: const Text(
+                  "Twitter",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
           ),
           backgroundColor: const Color.fromRGBO(88, 176, 240, 1),
         ),
-        body: const Column(
+        body: Column(
           children: [
             Header(),
             Expanded(child: Body()),
