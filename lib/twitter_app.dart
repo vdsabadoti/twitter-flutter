@@ -1,7 +1,6 @@
+import 'package:first/twitter_body.dart';
 import 'package:first/twitter_footer.dart';
 import 'package:first/twitter_header.dart';
-import 'package:first/twitter_main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TwitterApp extends StatelessWidget {
