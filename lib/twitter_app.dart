@@ -11,7 +11,7 @@ class TwitterApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Login(),
-        '/tweets' : (context) => const TwitterHome(),
+        '/tweets' : (context) => TwitterHome(),
       },
     );
   }

@@ -1,18 +1,11 @@
+import 'package:first/http_request.dart';
 import 'package:first/twitter_posts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginBody extends StatefulWidget {
+import 'class/Tweet.dart';
 
-  static const List<Widget> twitterPostsList = [
-    TwitterPosts(imageSource: 'https://picsum.photos/250?image=9', username: '@crocante', post: 'content content content content content content'),
-    TwitterPosts(imageSource: 'https://picsum.photos/250?image=9', username: '@crocante', post: 'content content content content content content'),
-    TwitterPosts(imageSource: 'https://picsum.photos/250?image=9', username: '@crocante', post: 'content content content content content content'),
-    TwitterPosts(imageSource: 'https://picsum.photos/250?image=9', username: '@crocante', post: 'content content content content content content'),
-    TwitterPosts(imageSource: 'https://picsum.photos/250?image=9', username: '@crocante', post: 'content content content content content content'),
-    TwitterPosts(imageSource: 'https://picsum.photos/250?image=9', username: '@crocante', post: 'content content content content content content'),
-    TwitterPosts(imageSource: 'https://picsum.photos/250?image=9', username: '@crocante', post: 'content content content content content content'),
-  ];
+class LoginBody extends StatefulWidget {
 
   LoginBody({
     super.key,
@@ -144,7 +137,10 @@ class _LoginBodyState extends State<LoginBody> {
               content: const Text('Are you sure ?'),
               actions: <Widget>[
                   TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      onPressed: () => {
+                        Navigator.pop(context, 'Cancel'),
+                        HttpRequestTwitter.getTweets(),
+                      },
                       child: const Text('Cancel'),
                   ),
                   TextButton(
@@ -155,7 +151,6 @@ class _LoginBodyState extends State<LoginBody> {
             )
     );
   }
-
 
 }
 

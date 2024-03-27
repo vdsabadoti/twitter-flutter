@@ -1,57 +1,77 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class Header extends StatelessWidget {
-  const Header({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return const NavBar();
-  }
-}
+  final Function() refresh;
 
-class NavBar extends StatelessWidget {
-  const NavBar({
-    super.key,
+  Header(this.refresh, {
+    super.key
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.lightBlue,
-      child: const Padding(
-        padding: EdgeInsets.all(10.0),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: Row(
           mainAxisAlignment:  MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-                child: IconNavBar('Nouveau')),
+                child: IconNavBar('Nouveau', refresh)),
             Expanded(
-                child: IconNavBar('Accueil')),
+                child: IconNavBar('Accueil', refresh)),
             Expanded(
-                child: IconNavBar('Rechercher')),
+                child: IconNavBar('Rechercher', refresh)),
           ],
         ),
       ),
     );
   }
-}
 
+}
 
 class IconNavBar extends StatelessWidget {
 
   final String title;
+  final Function() refresh;
 
-  const IconNavBar(this.title, {
+  IconNavBar(this.title, this.refresh, {
     super.key,
   });
 
-  Icon getIcon(){
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () async {
+          if (getAction()){
+            await refresh();
+          }
+          },
+        icon: getIcon(),
+        color: Colors.white,
+    );
+  }
+
+  bool getAction(){
     switch(title) {
       case 'Nouveau':
-      return Icon(Icons.edit);
+        return false;
+      case 'Accueil':
+        return true;
+      case 'Rechercher':
+        return false;
+      default:
+        return false;
+    }
+  }
+
+  Icon getIcon() {
+    switch (title) {
+      case 'Nouveau':
+        return Icon(Icons.edit);
       case 'Accueil':
         return Icon(Icons.home);
       case 'Rechercher':
@@ -59,14 +79,5 @@ class IconNavBar extends StatelessWidget {
       default:
         return Icon(Icons.volcano);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {},
-      icon: getIcon(),
-      color: Colors.white,
-    );
   }
 }
