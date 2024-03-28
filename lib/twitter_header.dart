@@ -1,12 +1,14 @@
+import 'dart:js';
+
+import 'package:first/Providers/posts_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class Header extends StatelessWidget {
 
-  final Function() refresh;
-
-  Header(this.refresh, {
+  Header({
     super.key
   });
 
@@ -20,11 +22,11 @@ class Header extends StatelessWidget {
           mainAxisAlignment:  MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-                child: IconNavBar('Nouveau', refresh)),
+                child: IconNavBar('Nouveau')),
             Expanded(
-                child: IconNavBar('Accueil', refresh)),
+                child: IconNavBar('Accueil')),
             Expanded(
-                child: IconNavBar('Rechercher', refresh)),
+                child: IconNavBar('Rechercher')),
           ],
         ),
       ),
@@ -35,10 +37,13 @@ class Header extends StatelessWidget {
 
 class IconNavBar extends StatelessWidget {
 
-  final String title;
-  final Function() refresh;
+  void _refresh(BuildContext context) {
+    context.read<PostsProvider>().loadPosts();
+  }
 
-  IconNavBar(this.title, this.refresh, {
+  final String title;
+
+  IconNavBar(this.title, {
     super.key,
   });
 
@@ -47,7 +52,7 @@ class IconNavBar extends StatelessWidget {
     return IconButton(
         onPressed: () async {
           if (getAction()){
-            await refresh();
+            _refresh(context);
           }
           },
         icon: getIcon(),

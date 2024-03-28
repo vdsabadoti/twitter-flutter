@@ -1,7 +1,7 @@
-import 'package:first/http_request.dart';
-import 'package:first/twitter_posts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:first/Providers/posts_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'class/Tweet.dart';
 
@@ -24,6 +24,10 @@ class _LoginBodyState extends State<LoginBody> {
     setState(() {
       switchValue = !switchValue;
     });
+  }
+
+  void _refreshTweets(BuildContext context){
+    context.read<PostsProvider>().loadPosts();
   }
 
   @override
@@ -103,6 +107,7 @@ class _LoginBodyState extends State<LoginBody> {
       }
       Navigator.pop(context);
       Navigator.pushNamed(context, '/tweets');
+      _refreshTweets(context);
     } else {
       Navigator.pop(context);
     }
@@ -139,7 +144,6 @@ class _LoginBodyState extends State<LoginBody> {
                   TextButton(
                       onPressed: () => {
                         Navigator.pop(context, 'Cancel'),
-                        HttpRequestTwitter.getTweets(),
                       },
                       child: const Text('Cancel'),
                   ),
