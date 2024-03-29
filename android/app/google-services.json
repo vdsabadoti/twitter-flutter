@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "660098676216",
+    "project_id": "mars-flutter-fire",
+    "storage_bucket": "mars-flutter-fire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660098676216:android:8f6dc4ed57ad7856ca920d",
+        "android_client_info": {
+          "package_name": "com.example.first"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3f3uvMxqLiwpFzd3U3L5N_Jq0r_kVH7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

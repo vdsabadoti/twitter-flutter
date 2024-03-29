@@ -7,6 +7,8 @@ class PostsProvider with ChangeNotifier {
 
   List<Tweet> tweets = [];
   bool refresh = true;
+  List<Tweet> tweetsCreatedByUser = [];
+  List<Tweet> tweetsFromAPI = [];
 
   PostsProvider() {
     loadPosts();
@@ -15,7 +17,8 @@ class PostsProvider with ChangeNotifier {
   void loadPosts() async {
     refreshPages();
     notifyListeners();
-    tweets = await HttpRequestTwitter.getTweets();
+    tweetsFromAPI = await HttpRequestTwitter.getTweets();
+    tweets = tweetsCreatedByUser + tweetsFromAPI;
     await Future.delayed(Duration(seconds: 1));
     refreshPages();
     notifyListeners();
@@ -23,6 +26,12 @@ class PostsProvider with ChangeNotifier {
 
   void refreshPages(){
     refresh = !refresh;
+  }
+
+  void addPost(Tweet tweet){
+    tweetsCreatedByUser.add(tweet);
+    tweets = tweetsCreatedByUser + tweetsFromAPI;
+    notifyListeners();
   }
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 class TwitterPosts extends StatelessWidget {
@@ -7,9 +8,11 @@ class TwitterPosts extends StatelessWidget {
   final String imageSource;
   final String username;
   final String post;
+  final DateTime? date;
+  final String? category;
 
   const TwitterPosts({
-    super.key, required this.imageSource, required this.username, required this.post,
+    super.key, required this.imageSource, required this.username, required this.post, this.date, this.category
   });
 
 
@@ -33,6 +36,10 @@ class TwitterPosts extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left : 10.0, top : 8.0),
+                      child: Text("# ${category ?? "Not categorized"}"),
+                    ),
                     Row(
                       mainAxisAlignment:MainAxisAlignment.spaceBetween,
                       children: [
@@ -44,15 +51,15 @@ class TwitterPosts extends StatelessWidget {
                                 child: Text(username),
                               ),
                           ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Text('50s'),
-                        )
+                          child: Text("${date ?? DateTime.now().toLocal()}".split(' ')[0]),
+                        ),
                       ],
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(left : 18.0, right: 8.0),
                         child: Text(post
                         ),
                       ),

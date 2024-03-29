@@ -5,9 +5,11 @@ part 'Tweet.g.dart';
 @JsonSerializable()
 class Tweet{
 
-  final int id;
-  final String author;
-  final String message;
+  int id;
+  String author;
+  String message;
+  DateTime? date;
+  String? category;
 
   Tweet(this.id, this.author, this.message);
 

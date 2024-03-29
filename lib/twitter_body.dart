@@ -32,6 +32,8 @@ class PostsBody extends StatelessWidget {
                     imageSource: 'https://picsum.photos/250?image=9',
                     username: tweets[index].author,
                     post: tweets[index].message,
+                    date: tweets[index].date,
+                    category: tweets[index].category,
                   );
                 }),
           ),

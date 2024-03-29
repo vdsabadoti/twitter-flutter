@@ -1,3 +1,5 @@
+import 'package:first/Providers/login_provider.dart';
+import 'package:first/Services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:first/Providers/posts_provider.dart';
@@ -17,6 +19,8 @@ class LoginBody extends StatefulWidget {
 
 class _LoginBodyState extends State<LoginBody> {
 
+
+  final AuthService _authService = AuthService();
   final loginForm = GlobalKey<FormState>();
   bool switchValue = false;
 
@@ -78,7 +82,7 @@ class _LoginBodyState extends State<LoginBody> {
                         onChanged: onChanged,
 
                     ),
-                    const Text('Mémoriser mot de passe'),
+                    const Text('Mémoriser la connexion'),
                   ],
                 ),
                 Padding(
@@ -99,11 +103,17 @@ class _LoginBodyState extends State<LoginBody> {
     );
   }
 
-  onPressed(BuildContext context) {
+  onPressed(BuildContext context) async {
     if (loginForm.currentState?.validate() == true) {
+
+      //FIREBASE ANONYMOUS
+      dynamic result = await _authService.signInAnonymously();
+      context.read<LoginProvider>().logUser();
+
       print("Success !");
       if (switchValue){
-        print("You need to save the password");
+
+        print('Keep user logged in');
       }
       Navigator.pop(context);
       Navigator.pushNamed(context, '/tweets');

@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
+import 'Providers/login_provider.dart';
+import 'Services/auth_service.dart';
+
 class Header extends StatelessWidget {
 
   Header({
@@ -26,7 +29,7 @@ class Header extends StatelessWidget {
             Expanded(
                 child: IconNavBar('Accueil')),
             Expanded(
-                child: IconNavBar('Rechercher')),
+                child: IconNavBar('SignOut')),
           ],
         ),
       ),
@@ -37,8 +40,19 @@ class Header extends StatelessWidget {
 
 class IconNavBar extends StatelessWidget {
 
+  final AuthService _authService = AuthService();
+
   void _refresh(BuildContext context) {
-    context.read<PostsProvider>().loadPosts();
+    Navigator.pushNamed(context, '/tweets');
+  }
+
+  void _newPost(BuildContext context) {
+    Navigator.pushNamed(context, '/newpost');
+  }
+
+  void _signOut(BuildContext context) async {
+    context.read<LoginProvider>().deleteUser();
+    await _authService.signOut();
   }
 
   final String title;
@@ -51,25 +65,23 @@ class IconNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () async {
-          if (getAction()){
-            _refresh(context);
-          }
+          getAction(context);
           },
         icon: getIcon(),
         color: Colors.white,
     );
   }
 
-  bool getAction(){
+  getAction(BuildContext context){
     switch(title) {
       case 'Nouveau':
-        return false;
+        return _newPost(context);
       case 'Accueil':
-        return true;
-      case 'Rechercher':
-        return false;
+        return _refresh(context);
+      case 'SignOut':
+        return _signOut(context);
       default:
-        return false;
+        return () => {};
     }
   }
 
@@ -79,8 +91,8 @@ class IconNavBar extends StatelessWidget {
         return Icon(Icons.edit);
       case 'Accueil':
         return Icon(Icons.home);
-      case 'Rechercher':
-        return Icon(Icons.search);
+      case 'SignOut':
+        return Icon(Icons.signpost_outlined);
       default:
         return Icon(Icons.volcano);
     }
